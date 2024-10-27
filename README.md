@@ -4,15 +4,15 @@ This module has been developed for casual music lovers to be able to experience 
 
 Its features:
 <ol>
-    <li>setting the samplerate of the USB HAL audio driver to be maximum automatically (up to 768 kHz & 32 bits; but 192 kHz & 32 bits for Tensor devices only)</li>
-    <li> setting its USB data transfer period to be 2000 usec for reducing jitter, instead of usual 5000 usec</li>
-    <li>setting the samplerate of the AOSP Bluetooth audio driver automatically depending upon a selected codec without double re-sampling unlike offload drivers</li>
-    <li>setting the samplerate of internal speakers to be maximum; 384 kHz & 32 bits for Qcom devices, 48 kHz & 32 bits for others</li>
-    <li>default re-sampling parameters are the same as <a href="https://github.com/Magisk-Modules-Alt-Repo/resampling-for-cheapies">"Resampling for cheapies"</a> (can be overrided by other modules)</li>
-    <li>optimizing I/O kernel tunables for reducing jitter (most effective and almost safe as kenel tuning)</li>
-    <li>designed for using <a href="https://github.com/Magisk-Modules-Alt-Repo/audio-misc-settings">"Audio Msic. Settings"</a> or <a href="https://github.com/yzyhk904/hifi-maximizer-mod">"Hifi maximizer"</a>together, but used by itself only</li>
-    <li>since the above two modules override re-sampling parameters, use <a href="https://github.com/Magisk-Modules-Alt-Repo/resampling-for-cheapies">"Resampling for cheapies"</a> in addition if you use cheapie devices (Bluetooth LDAC earphones, cheap USB DAC's, and internal speakers, etc.)</li>
-    <li>including <a href="https://github.com/Magisk-Modules-Alt-Repo/drc-remover">"DRC remover"</a> and <a href="https://github.com/Magisk-Modules-Alt-Repo/usb-samplerate-unlocker">"USB Samplerate Unlocker"</a></li>
+    <li>Setting the samplerate of the USB HAL audio driver to be maximum automatically (up to 768 kHz & 32 bits; but 192 kHz & 32 bits for Tensor devices only)</li>
+    <li>Setting its USB data transfer period to be 2000 usec for reducing jitter, instead of usual 5000 usec</li>
+    <li>Setting the samplerate of the AOSP Bluetooth audio driver automatically depending upon a selected codec without double re-sampling unlike offload drivers</li>
+    <li>Setting the samplerate of internal speakers to be maximum; 384 kHz & 32 bits for Qcom devices, 48 kHz & 32 bits for others</li>
+    <li>Default re-sampling parameters are the same as <a href="https://github.com/Magisk-Modules-Alt-Repo/resampling-for-cheapies">"Resampling for cheapies"</a> (can be overridden by other modules)</li>
+    <li>Optimizing I/O kernel tunables for reducing jitter (most effective and almost safe as kernel tuning)</li>
+    <li>Designed for using <a href="https://github.com/Magisk-Modules-Alt-Repo/audio-misc-settings">"Audio Msic. Settings"</a> or <a href="https://github.com/yzyhk904/hifi-maximizer-mod">"Hifi maximizer"</a> together, but can be used by itself only</li>
+    <li>Since the above two modules override re-sampling parameters, use <a href="https://github.com/Magisk-Modules-Alt-Repo/resampling-for-cheapies">"Resampling for cheapies"</a> in addition if you use cheapie devices (Bluetooth LDAC earphones, cheap USB DAC's, and internal speakers, etc.)</li>
+    <li>Including <a href="https://github.com/Magisk-Modules-Alt-Repo/drc-remover">"DRC remover"</a> and <a href="https://github.com/Magisk-Modules-Alt-Repo/usb-samplerate-unlocker">"USB Samplerate Unlocker"</a>; Don't try installing them together</li>
 </ol>
 <br/>
 <br/>
