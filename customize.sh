@@ -1,6 +1,6 @@
 #!/system/bin/sh
 
-# A gurd for devices of pre 7.0 audio policy implementation
+# A gurd for devices of pre 7.0 audio policy implementations
 # Busybox cannot execute {,64} expansion properly unlike mksh, so manually expanded
 if [ -z "`ls /vendor/lib64/android.hardware.audio@7.?.so 2>/dev/null`"  -a  -z "`ls /vendor/lib/android.hardware.audio@7.?.so 2>/dev/null`" ]; then
     abort "  ***
@@ -26,7 +26,8 @@ MAGISKTMP="$(magisk --path)/.magisk"
 REPLACE=""
 REPLACEFILES=""
 
-# Note: almost all equalizers and some apps cannot work for greater than 192kHz audio outputs, but their quality is far better sometimes
+# Note: almost all equalizers and some apps cannot work for greater than 192kHz audio outputs, but of which quality is far better sometimes
+# If you prefer such ones, change "384000" below to "190000" or even "48000"
 SampleRatePrimary="384000"
 AudioFormatPrimary="AUDIO_FORMAT_PCM_32_BIT"
 
