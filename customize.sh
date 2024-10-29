@@ -1,6 +1,6 @@
 #!/system/bin/sh
 
-# A gurd for devices of pre 7.0 audio policy implementations
+# A guard for devices of pre 7.0 audio policy implementations
 # Busybox cannot execute {,64} expansion properly unlike mksh, so manually expanded
 if [ -z "`ls /vendor/lib64/android.hardware.audio@7.?.so 2>/dev/null`"  -a  -z "`ls /vendor/lib/android.hardware.audio@7.?.so 2>/dev/null`" ]; then
     abort "  ***
@@ -39,7 +39,7 @@ templateFile="$MODPATH/templates/bypass_offload_template.xml"
 # Check if on a specific device or not
 case "`getprop ro.board.platform`" in
     gs* | zuma* )
-        # A conflicting gurd for "Hifi maximizer" on Tensor devices
+        # A conflicting guard for "Hifi maximizer" on Tensor devices
         if [ -e "${MODDIR%/*/*}/modules/hifi-maximizer-mod" ]; then
             abort '  ***
   Aborted: detecting Hifi maximizer already containing this feature on Tensor devices
@@ -107,8 +107,8 @@ esac
 # Note: Don't use "${MAGISKTMP}/mirror/system/vendor/*" instaed of "${MAGISKTMP}/mirror/vendor/*".
 # In some cases, the former may link to overlaied "/system/vendor" by Magisk itself (not mirrored original one).
 
-#   "full" below this line means "up to 386kHz unlock";
-#    for "up to 768kHz unlock", replace "full" with "max" below this line;
+#   "max" below this line means "up to 768kHz unlock";
+#    for "up to 384kHz unlock", replace "max" with "full" below this line;
 #    for "up to 192kHz unlock", replace "full" with "default" below this line.
 
 for ld in "lib" "lib64"; do
@@ -116,7 +116,7 @@ for ld in "lib" "lib64"; do
     for lname in "libalsautils.so" "libalsautilsv2.so"; do
         if [ -r "${MAGISKTMP}/mirror/vendor/${ld}/${lname}"  -a  -r "${d}/${lname}" ]; then
             mkdir -p "${MODPATH}${d}"
-            patchClearLock "${MAGISKTMP}/mirror/vendor/${ld}/${lname}" "${MODPATH}${d}/${lname}" "full"
+            patchClearLock "${MAGISKTMP}/mirror/vendor/${ld}/${lname}" "${MODPATH}${d}/${lname}" "max"
 
             chmod 644 "${MODPATH}${d}/${lname}"
             chcon u:object_r:vendor_file:s0 "${MODPATH}${d}/${lname}"

@@ -21,7 +21,7 @@ Notes:
 * This module can run only on devices using a 7.0 audio policy configuration prevailing since Android 14 or so including custom ROM's supporting relatively old ones.
 * This module has been tested on LineageOS and crDroid ROM's, and phh GSI's (Android 14, and Qualcomm SoC & MediaTek SoC & Tensors combinations). 
 * Don't forget to install ["Audio jitter silencer"](https://github.com/Magisk-Modules-Alt-Repo/audio-jitter-silencer) together and uninstall "Digital Wellbeing" app (for reducing very large jitters which this module cannot reduce by itself)!
-* Almost all equalizers and some apps (using an internal re-sampler to output; e.g. Am@zon music, some VOIP apps, etc.) cannot work for greater than 192kHz audio outputs (but of which quality is far better sometimes). If you prefer such ones, modify "384000" to "190000" or even "48000" in "customize.sh" in a ZIP file of this module and install (or update) the modified one
+* Almost all equalizers and some apps (using a much worse internal re-sampler to output; e.g. Am@zon music, some VOIP apps, etc.) cannot work for greater than 192kHz audio outputs (but of which quality is far better sometimes). If you prefer such ones, modify `SampleRatePrimary="384000"` to `SampleRatePrimary="190000"` or even `SampleRatePrimary="48000"` and also the third argument of `patchClearLock` command from "max" (up to 768 kHz) to "default" (up to 192 kHz) in "customize.sh" in a ZIP file of this module and install (or update) the modified one.
 
 
 ## DISCLAIMER
