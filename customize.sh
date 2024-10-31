@@ -2,7 +2,8 @@
 
 # A guard for devices of pre 7.0 audio policy implementations
 # Busybox cannot execute {,64} expansion properly unlike mksh, so manually expanded
-if [ -z "`ls /vendor/lib64/android.hardware.audio@7.?.so 2>/dev/null`"  -a  -z "`ls /vendor/lib/android.hardware.audio@7.?.so 2>/dev/null`" ]; then
+if [ -z "`ls /vendor/lib64/android.hardware.audio@7.?.so 2>/dev/null`"  -a  -z "`ls /vendor/lib/android.hardware.audio@7.?.so 2>/dev/null`" ] && \
+   [ -z "`ls /system/lib64/android.hardware.audio@7.?.so 2>/dev/null`" ]; then
     abort "  ***
   Aborted: no 7.0 audio policy implementation; this module doesn't support old devices based on pre 7.0 audio implementations
   ***"

@@ -21,9 +21,13 @@ function optimizeIoJitter()
 #
 function setResamplingParameters()
 {
-#  A conflicting gurd for "Resampling-for-cheapies" and other my modules
-    if [ -e "${MODDIR%/*/*}/modules/resampling-for-cheapies"  -o  -e "${MODDIR%/*/*}/modules/audio-misc-settings" -o  \
-         -e "${MODDIR%/*/*}/modules/hifi-maximizer-mod" ]; then
+#  A conflicting guard for "Resampling-for-cheapies" and other my modules
+if [ \( -e "${MODDIR%/*/*}/modules/resampling-for-cheapies"  -a  ! -e "${MODDIR%/*/*}/modules/resampling-for-cheapies/disable" \) \
+        -o  -e "${MODDIR%/*/*}/modules_update/resampling-for-cheapies" ] || \
+    [ \( -e "${MODDIR%/*/*}/modules/audio-misc-settings"  -a  ! -e "${MODDIR%/*/*}/modules/audio-misc-settings/disable" \) \
+        -o  -e "${MODDIR%/*/*}/modules_update/audio-misc-settings" ] || \
+    [ \( -e "${MODDIR%/*/*}/modules/hifi-maximizer-mod"  -a  ! -e "${MODDIR%/*/*}/modules/hifi-maximizer-mod/disable" \) \
+        -o  -e "${MODDIR%/*/*}/modules_update/hifi-maximizer-mod" ]; then
         return 1
     fi
 
