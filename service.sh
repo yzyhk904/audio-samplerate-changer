@@ -65,6 +65,25 @@ if [ \( -e "${MODDIR%/*/*}/modules/resampling-for-cheapies"  -a  ! -e "${MODDIR%
     reloadAudioserver
 }
 
+function replaceSystemPropsExceptions()
+{
+    case "`getprop ro.board.platform`" in
+        "kona" | "kalama" | "shima" | "yupik" )
+            ;;
+        * )
+            return 0
+            ;;
+    esac
+    
+#  Workaround for recent Pixel Firmwares (not to reboot when resetprop'ing)
+    resetprop --delete vendor.audio.usb.perio
+    resetprop --delete vendor.audio.usb.out.period_us
+#  End of workaround
+    
+    resetprop vendor.audio.usb.perio 2750
+    resetprop vendor.audio.usb.out.period_us 2750
+}
+
 # sleep more than 30 secs (waitAudioServer) needed for "settings" commands to become effective in an orphan process
 
-(((waitAudioServer; setResamplingParameters; optimizeIoJitter; remountFile "$MODDIR" )  0<&- &>"/dev/null" &) &)
+(((waitAudioServer; setResamplingParameters; replaceSystemPropsExceptions; optimizeIoJitter; remountFiles "$MODDIR" )  0<&- &>"/dev/null" &) &)

@@ -18,7 +18,7 @@ Its features:
 <br/>
 
 Notes:
-* This module can run only on devices using a 7.0 audio policy configuration prevailing since Android 14 or so including custom ROM's supporting relatively old ones.
+* This module can run only on devices using a 7.0 audio policy configuration prevailing since Android 14 or so including custom ROM's supporting relatively old ones, excluding recent AIDL only ones like Pixel 9 series.
 * This module has been tested on LineageOS and crDroid ROM's, and phh GSI's (Android 14, and Qualcomm SoC & MediaTek SoC & Tensors combinations). 
 * Don't forget to install ["Audio jitter silencer"](https://github.com/Magisk-Modules-Alt-Repo/audio-jitter-silencer) together and uninstall "Digital Wellbeing" app (for reducing very large jitters which this module cannot reduce by itself)!
 * Also don't forget disabling "Absolute Volume" of Bluetooth devices in developer settings and setting a volume at the device side to be maximum for the best audio quality.
