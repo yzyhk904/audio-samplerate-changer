@@ -64,7 +64,7 @@
                              samplingRates="48000"
                              channelMasks="AUDIO_CHANNEL_IN_MONO AUDIO_CHANNEL_IN_STEREO AUDIO_CHANNEL_INDEX_MASK_3"/>
                 </mixPort>
-                <mixPort name="hotword input" role="sink" flags="AUDIO_INPUT_FLAG_HW_HOTWORD" maxActiveCount="0" >
+                <mixPort name="hotword input" role="sink" flags="AUDIO_INPUT_FLAG_HW_HOTWORD" maxActiveCount="0">
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
                              samplingRates="8000 11025 12000 16000 22050 24000 32000 44100 48000"
                              channelMasks="AUDIO_CHANNEL_IN_MONO AUDIO_CHANNEL_IN_STEREO"/>
@@ -118,6 +118,8 @@
                 </devicePort>
                 <devicePort tagName="Telephony Tx" type="AUDIO_DEVICE_OUT_TELEPHONY_TX" role="sink">
                 </devicePort>
+                <devicePort tagName="Proxy" type="AUDIO_DEVICE_OUT_PROXY" role="sink">
+                </devicePort>
                 <devicePort tagName="USB Device Out" type="AUDIO_DEVICE_OUT_USB_DEVICE" role="sink">
                     <profile name="" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
                 </devicePort>
@@ -157,6 +159,8 @@
                        sources="primary output,deep buffer,haptic,voip_rx"/>
                 <route type="mix" sink="Aux Digital"
                        sources="primary output,deep buffer,haptic,voip_rx"/>
+                <route type="mix" sink="Proxy"
+                       sources="primary output,deep buffer"/>
                 <route type="mix" sink="BT SCO"
                        sources="primary output,deep buffer,haptic,voip_rx"/>
                 <route type="mix" sink="BT SCO Headset"
@@ -320,8 +324,8 @@
 
     <!-- Volume section -->
 
-    <xi:include href="/vendor/etc/audio_policy_volumes.xml"/>
-    <xi:include href="/vendor/etc/default_volume_tables.xml"/>
+    <xi:include href="%VOLUME_FILE%"/>
+    <xi:include href="%DEFAULT_VOLUME_FILE%"/>
 
     <!-- End of Volume section -->
 </audioPolicyConfiguration>

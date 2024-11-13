@@ -3,10 +3,15 @@
 # A guard for devices supporting AIDL only (like Pixel 9 series) and pre 7.0 audio policy implementations
 # Busybox cannot execute {,64} expansion properly unlike mksh, so manually expanded
 if [ -z "`ls /vendor/lib64/android.hardware.audio@7.?.so 2>/dev/null`"  -a  -z "`ls /vendor/lib/android.hardware.audio@7.?.so 2>/dev/null`" ] && \
-   [ -z "`ls /system/lib64/android.hardware.audio@7.?.so 2>/dev/null`" ]; then
+   [ -z "`ls /system/lib64/android.hardware.audio@7.?.so 2>/dev/null`"  -a  -z "`ls /system/lib/android.hardware.audio@7.?.so 2>/dev/null`" ]; then
     abort "  ***
   Aborted: no 7.0 audio policy implementation; 
      this module doesn't support recent AIDL only devices and old ones based on pre 7.0 audio implementations
+  ***"
+elif [ "`getprop ro.build.product`" = "jfltexx" ]; then
+    # Galaxy S4 has a bug for the 7.0 audio policy configuration
+    abort "  ***
+  Aborted: Galaxy S4 has a bug for the 7.0 audio policy implementation
   ***"
 fi
 
@@ -35,8 +40,15 @@ AudioFormatPrimary="AUDIO_FORMAT_PCM_32_BIT"
 
 DRC_enabled="false"
 USB_module="usb"
-BT_module="bluetooth"
 templateFile="$MODPATH/templates/bypass_offload_template.xml"
+
+if [ "`getprop persist.bluetooth.bluetooth_audio_hal.disabled`" = "true" ]; then
+    BT_module="a2dp"
+elif [ -e "/vendor/lib64/hw/audio.bluetooth.default.so" ]; then
+    BT_module="bluetooth"
+else
+    BT_module="a2dp"
+fi
 
 # Check if on a specific device or not
 case "`getprop ro.board.platform`" in
@@ -46,8 +58,8 @@ case "`getprop ro.board.platform`" in
             abort '  ***
   Aborted: detecting Hifi maximizer already containing this feature on Tensor devices
   ***'
-        
         fi
+        
         # Tensor's max. samplerate for internal speakers
         SampleRatePrimary="48000"
         USB_module="usbv2"
@@ -55,7 +67,9 @@ case "`getprop ro.board.platform`" in
         ;;
     "pineapple" )
         # POCO F6 cannot output AOSP "bluetooth" driver, but "bluetooth_qti" driver can except its offload driver
-        BT_module="bluetooth_qti"
+        if [ "$BT_module" = "bluetooth" ]; then
+            BT_module="bluetooth_qti"
+        fi
         ;;
     mt* )
         # MTK devices max. samplerate for internal speakers
@@ -72,6 +86,16 @@ configXML="`getActivePolicyFile`"
 # "/my_product/etc" and "/odm/etc" are used on ColorOS (RealmeUI) and OxygenOS(?)
 case "$configXML" in
     /vendor/etc/* | /my_product/etc/* | /odm/etc/* | /system/etc/* | /product/etc/* )
+        VolumeFile=$(getVolumeFile "${MAGISKTMP}/mirror/${configXML}")
+        if [ -z "$VolumeFile" ]; then
+            VolumeFile="/vendor/etc/audio_policy_volumes.xml"
+        fi
+        
+        DefaultVolumeFile=$(getDefaultVolumeFile "${MAGISKTMP}/mirror/${configXML}")
+        if [ -z "$DefaultVolumeFile" ]; then
+            DefaultVolumeFile="/vendor/etc/default_volume_tables.xml"
+        fi
+        
         case "${configXML}" in
             /system/* )
                 configXML="${configXML#/system}"
@@ -82,8 +106,9 @@ case "$configXML" in
         mkdir -p "${modConfigXML%/*}"
         touch "$modConfigXML"
         
-        sed -e "s/%DRC_ENABLED%/$DRC_enabled/" -e "s/%USB_MODULE%/$USB_module/" -e "s/%BT_MODULE%/$BT_module/" \
-            -e "s/%SAMPLING_RATE%/$SampleRatePrimary/" -e "s/%AUDIO_FORMAT%/$AudioFormatPrimary/" \
+        sed   -e "s|%DRC_ENABLED%|$DRC_enabled|" -e "s|%USB_MODULE%|$USB_module|" -e "s|%BT_MODULE%|$BT_module|" \
+                -e "s|%SAMPLING_RATE%|$SampleRatePrimary|" -e "s|%AUDIO_FORMAT%|$AudioFormatPrimary|" \
+                -e "s|%VOLUME_FILE%|$VolumeFile|" -e "s|%DEFAULT_VOLUME_FILE%|$DefaultVolumeFile|" \
                 "$templateFile" >"$modConfigXML"
         
         chmod 644 "$modConfigXML"

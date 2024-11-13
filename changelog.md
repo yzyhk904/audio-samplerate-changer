@@ -1,5 +1,8 @@
 ## Change logs
 
+# v1.0.3
+* Fixed to adjust volume curve table links in an audio policy configuration file dynamically for avoiding miss-linking
+
 # v1.0.2
 * Fixed the checking routine for the 7.0 audio policy implementation
 * Fixed remounting in the service mode (function name typo)
