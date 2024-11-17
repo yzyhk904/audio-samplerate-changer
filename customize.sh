@@ -52,7 +52,7 @@ fi
 
 # Check if on a specific device or not
 case "`getprop ro.board.platform`" in
-    gs* | zuma* )
+    gs* | "zuma" )
         # A conflicting guard for "Hifi maximizer" on Tensor devices
         if [ -e "${MODDIR%/*/*}/modules/hifi-maximizer-mod" ]; then
             abort '  ***
@@ -179,7 +179,7 @@ done
 fname="/system/vendor/etc/audio_platform_configuration.xml"
 if [ -r "$fname" ]; then
     mkdir -p "${MODPATH}${fname%/*}"
-    sed -e 's/min_rate="[1-9][0-9]*"/min_rate="44100"/g' \
+    sed -e 's|min_rate="[1-9][0-9]*"|min_rate="44100"|g' \
         -e 's/"MaxSamplingRate=[1-9][0-9]*,/"MaxSamplingRate=192000,/' <"${MAGISKTMP}/mirror${fname#/system}" >"${MODPATH}${fname}"
     touch "${MODPATH}${fname}"
     chmod 644 "${MODPATH}${fname}"
