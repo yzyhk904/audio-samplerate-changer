@@ -11,8 +11,8 @@ Its features:
     <li>Default re-sampling parameters are the same as <a href="https://github.com/Magisk-Modules-Alt-Repo/resampling-for-cheapies">"Resampling for cheapies"</a> (can be overridden by other modules), i.e., very mastering level quality being much better than the over-sammpling quality of very expensive DAC's applied when "The bit-perfect mode"</li>
     <li>Optimizing I/O kernel tunables for reducing jitter (most effective and almost safe as kernel tuning)</li>
     <li>Designed for using <a href="https://github.com/Magisk-Modules-Alt-Repo/audio-misc-settings">"Audio Msic. Settings"</a> or <a href="https://github.com/yzyhk904/hifi-maximizer-mod">"Hifi maximizer"</a> together, but can be used by itself only</li>
-    <li>Since the above two modules override re-sampling parameters, use <a href="https://github.com/Magisk-Modules-Alt-Repo/resampling-for-cheapies">"Resampling for cheapies"</a> in addition if you use cheapie devices (Bluetooth LDAC earphones, cheap USB DAC's, and internal speakers, etc.)</li>
-    <li>Strongly recommending to install ["Audio jitter silencer"](https://github.com/Magisk-Modules-Alt-Repo/audio-jitter-silencer) together and uninstall (or disable) "Digital Wellbeing" app (for reducing very large jitters which this module cannot reduce by itself)!</li>
+    <ol><li>Since the above two modules override re-sampling parameters, use <a href="https://github.com/Magisk-Modules-Alt-Repo/resampling-for-cheapies">"Resampling for cheapies"</a> in addition if you use cheapie devices (Bluetooth LDAC earphones, cheap USB DAC's, and internal speakers, etc.)</li>
+    <li>Strongly recommending to install <a href="https://github.com/Magisk-Modules-Alt-Repo/audio-jitter-silencer">"Audio jitter silencer"</a> together and uninstall (or disable) "Digital Wellbeing" app (for reducing very large jitters which this module cannot reduce by itself)!</li></ol>
     <li>Disabling DRC (a kind of compression) if enabled, and the call screening framework under audio HAL's for reducing jitter</li>
 </ol>
 <br/>
